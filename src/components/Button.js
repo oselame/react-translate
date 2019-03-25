@@ -4,15 +4,17 @@ import ColorContext from '../contexts/ColorContext';
 
 class Button extends Component {
 
-    renderSubmit(value) {
-        return value === 'english' ? 'Submit' : 'Salvar';
+    static contextType = LanguageContext;
+
+    renderSubmit(language) {
+        return language === 'english' ? 'Submit' : 'Salvar';
     }
 
-    renderColor(color) {
+    renderButton(color) {
         return (
             <button className={`ui button ${color}`}>
                 <LanguageContext.Consumer>
-                    {(value) => this.renderSubmit(value)}
+                    {({ language }) => this.renderSubmit( language )}
                 </LanguageContext.Consumer>
             </button>
         );
@@ -21,7 +23,7 @@ class Button extends Component {
     render() {
         return (
             <ColorContext.Consumer>
-                {(color) => this.renderColor(color)}
+                {(color) => this.renderButton(color)}
             </ColorContext.Consumer>
         );
     }
